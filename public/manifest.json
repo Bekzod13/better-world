@@ -1,0 +1,21 @@
+{
+    "name": "Yangi dunyo",
+    "short_name": "Yangi dunyo",
+    "description": "Yangi dunyo control panel",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "orientation": "portrait-primary",
+    "icons": [
+       {
+          "src": "/favicon.png",
+          "type": "image/png",
+          "sizes": "180x180"
+       }
+    ],
+    "related_applications": [{
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+   }]
+ }
