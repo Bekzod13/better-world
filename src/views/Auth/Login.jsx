@@ -45,7 +45,7 @@ import { useUserStore } from "../../store/userStore";
 
     return <Flex justifyContent={'center'} align={'center'} bg={'white'} height={'100vh'}>
         <Box maxWidth={'500'} width={'100%'} py={3} px={6}>
-            <Text fontSize={'4xl'} fontWeight={'600'} color={config.style.main} mb={10}>Xush kelibsiz birodar</Text>
+            <Text fontSize={'4xl'} fontWeight={'600'} color={config.style.main} mb={10}>Xush kelibsiz!</Text>
             {
               error !== '' &&
               <Alert status='error' mb={'5'} width={'100%'}>
