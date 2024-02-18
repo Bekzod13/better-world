@@ -21,3 +21,6 @@ jobs:
 
       - name: Build project
         run: npm run build
+      
+      - name: move project
+        run: mv dist /var/www/better-world-build/dist
