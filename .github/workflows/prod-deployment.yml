@@ -22,7 +22,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Delete old dis folder
+      - name: Delete old dist folder
         run: rm -rf /var/www/better-world-build/dist
       
       - name: move project
