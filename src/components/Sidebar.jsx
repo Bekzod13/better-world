@@ -7,6 +7,7 @@ import LinkItem from "./Sidebar/LinkItem";
 import { useReducer, useState } from "react";
 import { BiLogOutCircle } from "react-icons/bi";
 import { useUserStore } from "../store/userStore";
+import { config } from "../config";
 
 const Sidebar = () => {
     const logout = useUserStore(state => state.logout);
@@ -26,7 +27,8 @@ const Sidebar = () => {
                 onMouseLeave={() => setState({onHover: false})}
                 flexDirection={'column'} style={{position: 'sticky', top: 0, left: 0}} 
                 maxWidth={'260px'} 
-                position={'sticky'} 
+                position={'sticky'}
+                borderRight={'1px solid ' + config.style.light} 
                 left={0} top={0}>
         {
             routes.map(item => (

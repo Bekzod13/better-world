@@ -9,7 +9,7 @@ const Item = ({order, setState}) => {
     return <Link to={`/orders/${order.id}`}>
         <Box mt={5}  borderRadius={5} border={'1px solid ' + config.style.light}>
             <Flex p={3} bg={config.style.light} onClick={() => setState({show: true, orderId: order.id})}>
-                <Text fontSize={'sm'}>{order.slug}</Text>
+                <Text fontSize={'sm'}>{order.slug ? order.slug : order.address}</Text>
                 <Spacer/>
             </Flex>
             <Flex alignItems={'center'} px={3} py={1} borderTop={'1px solid ' + config.style.light} >

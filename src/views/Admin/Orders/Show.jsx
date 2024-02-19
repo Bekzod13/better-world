@@ -10,6 +10,15 @@ import EditOrder from "./EditOrder";
 import { Link, useParams } from "react-router-dom";
 import { companyApi } from "../../../data/companyApi";
 import { useUserStore } from "../../../store/userStore";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
 
 const Show = () => {
 
@@ -114,6 +123,7 @@ const Show = () => {
 
     const changeStatus = async (statusId) => {
         const data = {
+            id: Number(id),
             status: Number(statusId)
         }
         await orderApi.editOrder(data);
@@ -128,52 +138,106 @@ const Show = () => {
         editOrder ? <EditOrder order={order && order} setEditOrder={setEditOrder} getOrder={getOrder} />: <>
                 <MainHeader title={order && order.slug} />
         <Box pb={36}>
-            <Box p={3}>
-                <Flex mb={5}>
-                    <Text fontSize={'sm'} >Telefon:</Text>
-                    <Spacer/>
-                    <Text fontSize={'sm'} color={'blue'} textDecoration={'underline'}><a href={order && "tel:" + order.phone }>{order && order.phone}</a></Text>
-                </Flex>
-                <Flex mb={5}>
-                    <Text fontSize={'sm'} >Manzil:</Text>
-                    <Spacer/>
-                    <Text fontSize={'sm'}>{order && order.address}</Text>
-                </Flex>
-                <Flex mb={5}>
-                    <Text fontSize={'sm'} >Gilamlar soni:</Text>
-                    <Spacer/>
-                    <Text fontSize={'sm'}>{orderItems.length}</Text>
-                </Flex>
-                <Box mb={5}>
-                    <Text fontSize={'sm'} >Izoh:</Text>
-                    <Text fontSize={'sm'} >{order && order.description}</Text>
+
+        <Swiper pagination={true} modules={[Pagination]} className="mySwiper" style={{height: 'calc(100vh - 280px)'}} >
+            <SwiperSlide> 
+                <Box p={3}>
+                    <Flex mb={5}>
+                        <Text fontSize={'sm'} >Telefon:</Text>
+                        <Spacer/>
+                        <Text fontSize={'sm'} color={'blue'} textDecoration={'underline'}><a href={order && "tel:" + order.phone }>{order && order.phone}</a></Text>
+                    </Flex>
+                    <Flex mb={5}>
+                        <Text fontSize={'sm'} >Manzil:</Text>
+                        <Spacer/>
+                        <Text fontSize={'sm'}>{order && order.address}</Text>
+                    </Flex>
+                    <Flex mb={5}>
+                        <Text fontSize={'sm'} >Gilamlar soni:</Text>
+                        <Spacer/>
+                        <Text fontSize={'sm'}>{orderItems.length}</Text>
+                    </Flex>
+                    <Box mb={5}>
+                        <Text fontSize={'sm'} >Izoh:</Text>
+                        <Text fontSize={'sm'} >{order && order.description}</Text>
+                    </Box>
+                    <Flex alignItems={'center'} mb={5}>
+                        <Text fontSize={'sm'} >Status:</Text>
+                        <Spacer/>
+                        <Select fontSize={'sm'} width={'max-content'} onChange={(e) => changeStatus(e.target.value)}>
+                            {
+                                statusList.map(status => (
+                                    <option value={status.id} key={status.id} selected={(order && status.id === order.status) ? true : false}>{status.name}</option>
+                                ))
+                            }
+                        </Select>
+                    </Flex>
                 </Box>
-                <Flex alignItems={'center'} mb={5}>
-                    <Text fontSize={'sm'} >Status:</Text>
-                    <Spacer/>
-                    <Select fontSize={'sm'} width={'max-content'} onChange={(e) => changeStatus(e.target.value)}>
-                        {
-                            statusList.map(status => (
-                                <option value={status.id} key={status.id} selected={(order && status.id === order.status) ? true : false}>{status.name}</option>
-                            ))
-                        }
-                    </Select>
-                </Flex>
-            </Box>
-        <Accordion allowMultiple>
-                {
-                    (orderItems.length > 0) ?  order.order_items.map(item => (
-                        <AccordionItem key={item.id}>
-                                 <AccordionButton>
-                                    <Flex as="span" flex='1' fontSize={'sm'} textAlign='left'>
-                                        <p>{item.type}</p>
-                                        <Spacer/>
-                                        <p>{item.height} x {item.width}</p>
-                                    </Flex>
-                            <AccordionIcon />
-                        </AccordionButton>
-                        {
-                            (itemEdit && itemEdit.id === item.id) ? <AccordionPanel p={0}>
+            </SwiperSlide>
+            <SwiperSlide> 
+                <Box height={'100%'} overflowY={'scroll'}>
+            
+                <Accordion allowMultiple >
+                    {
+                        (orderItems.length > 0) ?  order.order_items.map(item => (
+                            <AccordionItem key={item.id}>
+                                    <AccordionButton>
+                                        <Flex as="span" flex='1' fontSize={'sm'} textAlign='left'>
+                                            <p>{item.type}</p>
+                                            <Spacer/>
+                                            <p>{item.height} x {item.width}</p>
+                                        </Flex>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            {
+                                (itemEdit && itemEdit.id === item.id) ? <AccordionPanel p={0}>
+                                <Flex p={3} borderRadius={'20px'} border={'1px solid ' + config.style.light} direction={"column"} mt={3} gap={2}>
+                                <Flex>
+                                    <Text fontSize={'sm'}>Turi:</Text>
+                                    <Spacer />
+                                    <Input fontSize={'sm'} w='150px' value={item.type} disabled={true}/>
+                                </Flex>
+                                <Flex>
+                                    <Text fontSize={'sm'}>Narxi 1kv:</Text>
+                                    <Spacer />
+                                    <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemEditPrice : (item.price).toLocaleString()} disabled={!editor} 
+                                onChange={e => setItemEditPrice(e.target.value)} />
+                                </Flex>
+                                <Flex>
+                                    <Text fontSize={'sm'}>Bo'yi:</Text>
+                                    <Spacer />
+                                    <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemHeight : item.height} disabled={!editor} 
+                                    onChange={e => setItemHeight(e.target.value)} />
+                                </Flex>
+                                <Flex>
+                                    <Text fontSize={'sm'}>Eni:</Text>
+                                    <Spacer />
+                                    <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemWidth : item.width} disabled={!editor} 
+                                    onChange={e => setItemWidth(e.target.value)} />
+                                </Flex>
+                                <Flex>
+                                    <Text type="number" fontSize={'sm'}>Kvadrati:</Text>
+                                    <Spacer />
+                                    <Input fontSize={'sm'} w='150px' value={itemEdit ? (itemHeight * itemWidth) : item.width * item.height} disabled={true} />
+                                </Flex>
+
+                                <Flex>
+                                    <Text fontSize={'sm'}>Narxi:</Text>
+                                    <Spacer />
+                                    <Input type="number" fontSize={'sm'} w='150px' value={itemEdit ? (itemEditPrice * itemHeight * itemWidth) : (item.height * item.width * item.price).toLocaleString()} disabled={true} />
+                                </Flex>
+
+                                <Flex mt={5}>
+                                    <Spacer />
+                                    <Button bg={config.style.main} color={'white'} onClick={() => {
+                                        editItemFunc();
+                                    }}>
+                                    <CheckIcon/>
+                                    </Button>
+                                </Flex>
+                            </Flex>
+                            </AccordionPanel>:
+                            <AccordionPanel p={0}>
                             <Flex p={3} borderRadius={'20px'} border={'1px solid ' + config.style.light} direction={"column"} mt={3} gap={2}>
                             <Flex>
                                 <Text fontSize={'sm'}>Turi:</Text>
@@ -183,93 +247,52 @@ const Show = () => {
                             <Flex>
                                 <Text fontSize={'sm'}>Narxi 1kv:</Text>
                                 <Spacer />
-                                <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemEditPrice : (item.price).toLocaleString()} disabled={!editor} 
-                               onChange={e => setItemEditPrice(e.target.value)} />
+                                <Input fontSize={'sm'} w='150px' value={(item.price).toLocaleString()} disabled={true} />
                             </Flex>
                             <Flex>
                                 <Text fontSize={'sm'}>Bo'yi:</Text>
                                 <Spacer />
-                                <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemHeight : item.height} disabled={!editor} 
-                                onChange={e => setItemHeight(e.target.value)} />
+                                <Input fontSize={'sm'} w='150px' value={item.height} disabled={!editor} />
                             </Flex>
                             <Flex>
                                 <Text fontSize={'sm'}>Eni:</Text>
                                 <Spacer />
-                                <Input type="number" fontSize={'sm'} w='150px' value={editor ? itemWidth : item.width} disabled={!editor} 
-                                onChange={e => setItemWidth(e.target.value)} />
+                                <Input fontSize={'sm'} w='150px' value={item.width} disabled={!editor} />
                             </Flex>
                             <Flex>
-                                <Text type="number" fontSize={'sm'}>Kvadrati:</Text>
+                                <Text fontSize={'sm'}>Kvadrati:</Text>
                                 <Spacer />
-                                <Input fontSize={'sm'} w='150px' value={itemEdit ? (itemHeight * itemWidth) : item.width * item.height} disabled={true} />
+                                <Input fontSize={'sm'} w='150px' value={item.width * item.height} disabled={true} />
                             </Flex>
 
                             <Flex>
                                 <Text fontSize={'sm'}>Narxi:</Text>
                                 <Spacer />
-                                <Input type="number" fontSize={'sm'} w='150px' value={itemEdit ? (itemEditPrice * itemHeight * itemWidth) : (item.height * item.width * item.price).toLocaleString()} disabled={true} />
+                                <Input fontSize={'sm'} w='150px' value={(item.height * item.width * item.price).toLocaleString()} disabled={true} />
                             </Flex>
 
                             <Flex mt={5}>
                                 <Spacer />
-                                <Button bg={config.style.main} color={'white'} onClick={() => {
-                                    editItemFunc();
+                                <Button onClick={() => {
+                                    setEditor(!editor)
+                                    getItem(item.id)
                                 }}>
-                                  <CheckIcon/>
+                                    <EditIcon/>    
                                 </Button>
                             </Flex>
                         </Flex>
-                        </AccordionPanel>:
-                           <AccordionPanel p={0}>
-                           <Flex p={3} borderRadius={'20px'} border={'1px solid ' + config.style.light} direction={"column"} mt={3} gap={2}>
-                           <Flex>
-                               <Text fontSize={'sm'}>Turi:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={item.type} disabled={true}/>
-                           </Flex>
-                           <Flex>
-                               <Text fontSize={'sm'}>Narxi 1kv:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={(item.price).toLocaleString()} disabled={true} />
-                           </Flex>
-                           <Flex>
-                               <Text fontSize={'sm'}>Bo'yi:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={item.height} disabled={!editor} />
-                           </Flex>
-                           <Flex>
-                               <Text fontSize={'sm'}>Eni:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={item.width} disabled={!editor} />
-                           </Flex>
-                           <Flex>
-                               <Text fontSize={'sm'}>Kvadrati:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={item.width * item.height} disabled={true} />
-                           </Flex>
+                        </AccordionPanel>
+                            }
+                        </AccordionItem>
+                        )): "Gilam yo'q"
+                    }
+                </Accordion>
+                        
+                </Box>
+            </SwiperSlide>
+        
+        </Swiper>
 
-                           <Flex>
-                               <Text fontSize={'sm'}>Narxi:</Text>
-                               <Spacer />
-                               <Input fontSize={'sm'} w='150px' value={(item.height * item.width * item.price).toLocaleString()} disabled={true} />
-                           </Flex>
-
-                           <Flex mt={5}>
-                               <Spacer />
-                               <Button onClick={() => {
-                                   setEditor(!editor)
-                                   getItem(item.id)
-                               }}>
-                                   <EditIcon/>    
-                               </Button>
-                           </Flex>
-                       </Flex>
-                       </AccordionPanel>
-                        }
-                    </AccordionItem>
-                    )): "Gilam yo'q"
-                }
-        </Accordion>
         </Box>
         <Flex position={'fixed'} bottom={0} right={0} width={"100%"} bg={'white'} p={3} flexDirection={'column'} borderTop={'1px solid '+ config.style.light} >
             <Flex width={'100%'} mb={3}>

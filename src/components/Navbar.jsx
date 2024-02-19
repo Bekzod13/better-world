@@ -9,7 +9,7 @@ import { useContext } from "react";
 
 const Navbar = () => {
     const {sidebar, setSidebar} = useContext(LayoutContext);
-    return <Flex height={'60px'} alignItems={'center'} px={5} >
+    return <Flex height={'60px'} alignItems={'center'} px={5} borderBottom={'1px solid ' + config.style.light} >
         <Link to={'/'} style={{fontWeight:600, color: config.style.black}}>Yangi dunyo</Link>
         <Spacer/>
         <Flex color={config.style.gray}>
