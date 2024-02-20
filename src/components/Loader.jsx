@@ -4,7 +4,7 @@ import { config } from "../config";
 
 const Loader = () => {
     return <Flex width={'100%'} height={'100vh'} zIndex={'10'} bg={'white'} justifyContent={'center'} alignItems={'center'}>
-        <Flex className="loader" width={50} height={50} justifyContent={'center'} alignItems={'center'} color={config.style.main}>
+        <Flex className="loader" fontSize={'3xl'} width={50} height={50} justifyContent={'center'} alignItems={'center'} color={config.style.main}>
             <SpinnerIcon/>
         </Flex>
     </Flex>

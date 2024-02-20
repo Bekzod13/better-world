@@ -1,9 +1,10 @@
 import { Flex, FormControl, Text, Box, FormLabel, Input, Button, Alert, AlertIcon, AlertTitle, Checkbox } from "@chakra-ui/react"
 import { config } from "../../config";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useUserStore } from "../../store/userStore";
+import { LayoutContext } from "../../context/LayoutContext";
  const Login = () => {
-
+    const {setRefreshing} = useContext(LayoutContext);
     const login = useUserStore(state => state.login);
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -27,12 +28,10 @@ import { useUserStore } from "../../store/userStore";
     };
 
   const signin = async () => {
-
     const data = {
       phone: phone,
       password: password
     }
-
     const response = await login(data);
     if(response === undefined)
     {
@@ -41,6 +40,11 @@ import { useUserStore } from "../../store/userStore";
         setError('');
       }, 3000);
     }
+    setRefreshing(true);
+
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 3000);
   }
 
     return <Flex justifyContent={'center'} align={'center'} bg={'white'} height={'100vh'}>

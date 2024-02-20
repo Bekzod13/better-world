@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminRoutes from "./AdminRoutes";
 import { LayoutContext } from "./context/LayoutContext";
 import { useUserStore } from "./store/userStore";
 import Login from "./views/Auth/Login";
+import Loader from "./components/Loader";
 
 function App() {
   const isAuthorized = useUserStore(state => state.app.isAuthorized);
@@ -10,31 +11,35 @@ function App() {
   const [refreshing, setRefreshing] = useState(false);
 
   const contextValue = {
-    sidebar, setSidebar
+    sidebar, setSidebar,
+    refreshing, setRefreshing,
   }
 
-  const handleSwipeToTop = (event) => {
-    if (event.deltaY < -50) {
+ const handleRefresh = () => {
+    if(window.screenY < 10)
+    {
       setRefreshing(true);
-        window.location.reload();
       setTimeout(() => {
+        window.location.reload();
         setRefreshing(false);
-      }, 3000);
+      }, 2000);
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleRefresh);
+    return () => {
+      window.removeEventListener('scroll', handleRefresh);
+    };
+  }, []);
 
   localStorage.setItem('chakra-ui-color-mode', 'light');
 
   return (
     <LayoutContext.Provider value={contextValue}>
       <>
-      <div
-          style={{ minHeight: '0', overflowY: 'auto' }}
-          onTouchMove={handleSwipeToTop}
-        ></div>
           {refreshing ? (
-            <div>Loading...</div>
+            <Loader/>
           ) : (
             <>
                 {

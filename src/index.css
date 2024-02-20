@@ -8,7 +8,7 @@ html{
 }
 
 .loader{
-  animation: loader 10 linear infinite;
+  animation: loader .4s linear infinite;
 }
 
 @keyframes loader {
