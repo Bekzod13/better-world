@@ -16,7 +16,7 @@ function App() {
   }
 
  const handleRefresh = () => {
-    if(window.screenY < 50)
+    if(window.screenY < 60)
     {
       setRefreshing(true);
       setTimeout(() => {
