@@ -16,7 +16,8 @@ function App() {
   }
 
  const handleRefresh = () => {
-    if(window.screenY < 80)
+   console.log(window.screenY);
+    if(window.screenY < -80)
     {
       setRefreshing(true);
       setTimeout(() => {
