@@ -17,9 +17,10 @@ function App() {
 
  const handleRefresh = () => {
    console.log(window.screenY);
-    if(window.screenY < -80)
+    if(window.screenY < -30)
     {
       setRefreshing(true);
+      setSidebar(false);
       setTimeout(() => {
         window.location.reload();
         setRefreshing(false);

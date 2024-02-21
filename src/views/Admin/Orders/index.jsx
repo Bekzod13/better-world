@@ -129,7 +129,7 @@ const Orders = () => {
                     {
                         state.orders ? state.orders.map(order => (
                             <Item order={order} key={order.id} setState={setState} />
-                        )): "Buyurtma yo'q"
+                        )): <Flex width={'100%'} justifyContent={'center'} mt={5} >Buyurtma yo'q</Flex>
                     }
                 </Box>
                 <Pagination currentPage={currentPage} state={state} handlePageChange={handlePageChange} totalPages={totalPages} />

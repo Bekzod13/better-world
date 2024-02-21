@@ -54,14 +54,21 @@ const AddOrder = ({setState}) => {
     const [phoneNumber, setPhoneNumber] = useState('+998');
 
     const handleChange = (e) => {
-      const input = e;
+      let input = e;
+
+      if (!input.includes("+"))
+      {
+          input = "+998" + input;
+      }
+
+        console.log(input);
+
       const cleaned = ('' + input).replace(/\D/g, '');
       const match = cleaned.match(/^(\d{1,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})$/);
       if (match) {
         setPhoneNumber(`+${match[1]} ${match[2]} ${match[3]} ${match[4]} ${match[5]}`.trim());
       }
     };
-
 
     const handlePaste = (event) => {
       handleChange(event.clipboardData.getData('text'))

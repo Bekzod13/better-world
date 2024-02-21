@@ -55,7 +55,7 @@ const Show = () => {
         if(id)
         {
             const response = await orderApi.getOrderById(id);
-            if(response)
+            if(response && response.data)
             {
                 setOrder(response.data);
                 setOrderItems(response.data.order_items ? response.data.order_items : []);

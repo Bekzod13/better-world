@@ -13,7 +13,7 @@ const Permissions = () => {
     
     const getRoles = async () => {
         const response = await companyApi.getCompanyRoles(user.company_id)
-        if(response)
+        if(response && response.data)
         {
             setRoles(response.data);
         }
@@ -22,7 +22,6 @@ const Permissions = () => {
     useEffect(() => {
         getRoles();
     }, [])
-    
 
     return <>
         <MainHeader title={'Ruxsatnomalar'} />

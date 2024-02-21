@@ -14,7 +14,7 @@ const Types = () => {
     const user = useUserStore(state => state.app.user);
     const getTypes = async () => {
         const response = await companyApi.getCompanyOrderTypes(user.company_id);
-        if(response)
+        if(response && response.data)
         {
             setTypes(response.data);
         }
@@ -32,7 +32,7 @@ const Types = () => {
                 {
                     types.length > 0 ? types.map(item => (
                         <Item key={item.id} item={item} getTypes={getTypes} />
-                    )) : "Turlar yo'q"
+                    )) : <Flex width={'100%'} justifyContent={'center'} mt={5} > Turlar yo'q</Flex>
                 }
                 </Box>
                 <Flex right={0} borderTop={'1px solid '+ config.style.light} p={3} position={'fixed'} bg={'white'} bottom={0} width={'100%'}>

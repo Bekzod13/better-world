@@ -10,7 +10,7 @@ const Volume = () => {
     const [groupData, setGroupData] = useState({});
     const getVolume = async () => {
         const response = await companyApi.getWorkVolume(user.company_id);
-        if(response)
+        if(response && response.data)
         {
             const groupedData = {};
                 response.data.forEach(item => {

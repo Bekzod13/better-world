@@ -13,7 +13,7 @@ const Staffs = () => {
 
     const getStaffs = async () => {
         const response = await userApi.getList();
-        if(response)
+        if(response && response.data)
         {
             setStaffs(response.data);
         }

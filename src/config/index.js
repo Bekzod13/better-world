@@ -1,5 +1,5 @@
 export const config = {
-    base_url: 'https://api.yangidunyo.group/api/v1/',
+    base_url: 'https://apidev.yangidunyo.group/api/v1/',
     statusList: [
         {
             id: 83,
