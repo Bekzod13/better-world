@@ -32,5 +32,9 @@ export const companyApi = {
 
     async setCompanyPermission(data){
         return await api_client.fetch({method: 'post', path: 'role/give-permissions', body: data});
+    }, 
+
+    async createRole(data){
+        return await api_client.fetch({method: 'post', path: 'role', body: data});
     }
 }
