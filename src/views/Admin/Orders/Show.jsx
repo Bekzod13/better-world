@@ -57,7 +57,6 @@ const Show = () => {
             const response = await orderApi.getOrderById(id);
             if(response && response.data)
             {
-                console.log(response.data);
                 setOrder(response.data);
                 setOrderItems(response.data.order_items ? response.data.order_items : []);
                 if(response.data.order_items)
@@ -151,7 +150,7 @@ const Show = () => {
                     <Flex >
                         <Text fontSize={'sm'} >Gilamlar soni:</Text>
                         <Spacer/>
-                        <Text  border={'1px solid' + config.style.light} py={1} px={3} borderRadius={5} fontSize={'sm'}>{order.count}</Text>
+                        <Text  border={'1px solid' + config.style.light} py={1} px={3} borderRadius={5} fontSize={'sm'}>{order && order.count}</Text>
                     </Flex>
                     <Box mb={5}>
                         <Text fontSize={'sm'} >Manzil:</Text>
