@@ -27,7 +27,7 @@ const Staffs = () => {
         {
             addStaff ? <AddUser setAddStaff={setAddStaff} getStaffs={getStaffs} /> : <>
              <MainHeader title={"Ishchilar"} />
-        <Box>
+        <Box pb={'100px'}>
             {
                 staffs.length > 0 ? staffs.map(item => (
                     <Item key={item.id} item={item}/>

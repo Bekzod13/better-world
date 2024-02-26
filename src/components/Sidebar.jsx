@@ -80,7 +80,7 @@ const routes = [
     {
         id: 6,
         link: "/permissions",
-        name: "Ruxsatnoma",
+        name: "Role",
         icon: <RiUserSettingsFill/>
     },
     

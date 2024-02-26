@@ -57,6 +57,7 @@ const Show = () => {
             const response = await orderApi.getOrderById(id);
             if(response && response.data)
             {
+                console.log(response.data);
                 setOrder(response.data);
                 setOrderItems(response.data.order_items ? response.data.order_items : []);
                 if(response.data.order_items)
@@ -147,19 +148,19 @@ const Show = () => {
                         <Spacer/>
                         <Text fontSize={'sm'} color={'blue'} textDecoration={'underline'}><a href={order && "tel:" + order.phone }>{order && order.phone}</a></Text>
                     </Flex>
-                    <Flex mb={5}>
-                        <Text fontSize={'sm'} >Manzil:</Text>
-                        <Spacer/>
-                        <Text fontSize={'sm'}>{order && order.address}</Text>
-                    </Flex>
-                    <Flex mb={5}>
+                    <Flex >
                         <Text fontSize={'sm'} >Gilamlar soni:</Text>
                         <Spacer/>
-                        <Text fontSize={'sm'}>{orderItems.length}</Text>
+                        <Text  border={'1px solid' + config.style.light} py={1} px={3} borderRadius={5} fontSize={'sm'}>{order.count}</Text>
                     </Flex>
                     <Box mb={5}>
+                        <Text fontSize={'sm'} >Manzil:</Text>
+                        <Text border={'1px solid' + config.style.light} p={3} mt={2} borderRadius={5} fontSize={'sm'}>{order && order.address}</Text>
+                    </Box>
+                 
+                    <Box mb={5}>
                         <Text fontSize={'sm'} >Izoh:</Text>
-                        <Text fontSize={'sm'} >{order && order.description}</Text>
+                        <Text  border={'1px solid' + config.style.light} p={3} mt={2} borderRadius={5} fontSize={'sm'} >{order && order.description}</Text>
                     </Box>
                     <Flex alignItems={'center'} mb={5}>
                         <Text fontSize={'sm'} >Status:</Text>

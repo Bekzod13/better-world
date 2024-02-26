@@ -24,7 +24,8 @@ const Permissions = () => {
     }, [])
 
     return <>
-        <MainHeader title={'Ruxsatnomalar'} />
+        
+        <MainHeader title={'Role'} />
         <Box>
             {
                 roles.length > 0 ? roles.map(item => (
