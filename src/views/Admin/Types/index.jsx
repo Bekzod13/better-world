@@ -28,7 +28,7 @@ const Types = () => {
         {
             addType ? <AddType addType={addType} setAddType={setAddType} />: <>
                 <MainHeader title={"Gilam turlari"} />
-                <Box mb={20}>
+                <Box mb={'100px'}>
                 {
                     types.length > 0 ? types.map(item => (
                         <Item key={item.id} item={item} getTypes={getTypes} />
