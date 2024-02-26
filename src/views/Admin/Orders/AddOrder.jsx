@@ -51,7 +51,7 @@ const AddOrder = ({setState}) => {
         }
     }
 
-    const [phoneNumber, setPhoneNumber] = useState('+998');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleChange = (e) => {
       let input = e;
